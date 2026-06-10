@@ -14,6 +14,12 @@ defmodule Ut.NumberToWordTest do
       assert NumberToWord.say(-5) == {:error, :negative_integer}
     end
 
+    @max_int 999_999_999_999_999_999_999_999_999_999_999_999
+
+    test "errors when the integer is too large" do
+      assert NumberToWord.say(@max_int + 1) == {:error, :out_of_range}
+    end
+
     test "errors for non-integers" do
       assert NumberToWord.say("21") == {:error, :non_integer}
       assert NumberToWord.say({5}) == {:error, :non_integer}

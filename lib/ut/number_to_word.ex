@@ -3,9 +3,12 @@ defmodule Ut.NumberToWord do
   Credit: Mike Buhot, https://gist.github.com/mbuhot/ba2232750f8e892c4c52142b556c563a
   """
 
+  @max_int 999_999_999_999_999_999_999_999_999_999_999_999
+
   @spec say(integer) :: String.t
   def say(int) when not is_integer(int), do: {:error, :non_integer}
   def say(int) when int < 0, do: {:error, :negative_integer}
+  def say(int) when int > @max_int, do: {:error, :out_of_range}
 
   def say(int) when is_integer(int) do
     int
