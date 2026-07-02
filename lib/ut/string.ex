@@ -4,7 +4,7 @@ defmodule Ut.String do
       string
       |> String.split()
       |> Enum.map(fn number -> to_num(number) end)
-      |> Enum.reject(fn number_tuple -> number_tuple == :error end)
+      |> Enum.reject(fn number_tuple -> match?({:error, _}, number_tuple) end)
       |> Enum.map(fn {:ok, number} -> number end)
     }
   end
@@ -46,7 +46,7 @@ defmodule Ut.String do
 
   def to_num(string) do
     case to_int(string) do
-      :error ->
+      {:error, _} ->
         to_flt(string)
 
       ok_tuple ->
@@ -59,7 +59,7 @@ defmodule Ut.String do
       {:ok, String.to_integer(string)}
     rescue
       ArgumentError ->
-        :error
+        {:error, string}
     end
   end
 
@@ -68,7 +68,7 @@ defmodule Ut.String do
       {:ok, String.to_float(string)}
     rescue
       ArgumentError ->
-        :error
+        {:error, string}
     end
   end
 end

@@ -76,10 +76,10 @@ defmodule Ut.StringTest do
     end
 
     test "errors for non-number strings" do
-      assert String.to_num("") == :error
-      assert String.to_num(".0") == :error
-      assert String.to_num("apple") == :error
-      assert String.to_num("%5") == :error
+      assert String.to_num("") == {:error, ""}
+      assert String.to_num(".0") == {:error, ".0"}
+      assert String.to_num("apple") == {:error, "apple"}
+      assert String.to_num("%5") == {:error, "%5"}
     end
   end
 
@@ -91,10 +91,10 @@ defmodule Ut.StringTest do
     end
 
     test "errors for non-integer strings" do
-      assert String.to_int("") == :error
-      assert String.to_int("0.0") == :error
-      assert String.to_int("beans") == :error
-      assert String.to_int("^5") == :error
+      assert String.to_int("") == {:error, ""}
+      assert String.to_int("0.1") == {:error, "0.1"}
+      assert String.to_int("beans") == {:error, "beans"}
+      assert String.to_int("^5") == {:error, "^5"}
     end
   end
 
@@ -106,11 +106,11 @@ defmodule Ut.StringTest do
     end
 
     test "errors for non-float strings" do
-      assert String.to_flt("") == :error
-      assert String.to_flt("8") == :error
-      assert String.to_flt("foo") == :error
-      assert String.to_flt("3..2") == :error
-      assert String.to_flt("4!6") == :error
+      assert String.to_flt("") == {:error, ""}
+      assert String.to_flt("8") == {:error, "8"}
+      assert String.to_flt("foo") == {:error, "foo"}
+      assert String.to_flt("3..2") == {:error, "3..2"}
+      assert String.to_flt("4!6") == {:error, "4!6"}
     end
   end
 end
